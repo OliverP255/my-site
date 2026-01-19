@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import TypingText from './TypingText';
+import { useIntersectionObserver } from '@/lib/hooks/useIntersectionObserver';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -10,6 +12,7 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,8 +34,14 @@ export default function Contact() {
   };
 
   return (
-    <div>
-      <h2 className="text-3xl md:text-4xl font-bold mb-12">Contact</h2>
+    <div ref={ref}>
+      <h2 className="text-3xl md:text-4xl font-bold mb-12 md:mb-16">
+        {isVisible ? (
+          <TypingText text="Contact" speed={50} delay={0} />
+        ) : (
+          'Contact'
+        )}
+      </h2>
       
       <div className="grid md:grid-cols-2 gap-12">
         <div>
@@ -40,9 +49,10 @@ export default function Contact() {
             Reach out to me at{' '}
             <a
               href="mailto:[your-email@example.com]"
-              className="underline hover:opacity-80"
+              className="relative inline-block hover:scale-105 transition-transform duration-300 group"
             >
-              [your-email@example.com]
+              <span className="underline">[your-email@example.com]</span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 group-hover:w-full" />
             </a>
             {' '}or connect on:
           </p>
@@ -51,17 +61,19 @@ export default function Contact() {
               href="https://linkedin.com/in/[your-profile]"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 underline"
+              className="relative text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-300 inline-block hover:scale-105 group w-fit"
             >
               LinkedIn
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 group-hover:w-full" />
             </a>
             <a
               href="https://github.com/[your-username]"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 underline"
+              className="relative text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-300 inline-block hover:scale-105 group w-fit"
             >
               GitHub
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 group-hover:w-full" />
             </a>
           </div>
         </div>
@@ -80,7 +92,7 @@ export default function Contact() {
               required
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-all duration-300"
             />
           </div>
           <div>
@@ -96,7 +108,7 @@ export default function Contact() {
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-all duration-300"
             />
           </div>
           <div>
@@ -112,7 +124,7 @@ export default function Contact() {
               rows={5}
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 resize-none"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-all duration-300 resize-none"
             />
           </div>
           <button

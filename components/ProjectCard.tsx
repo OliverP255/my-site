@@ -20,14 +20,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               </span>
             )}
           </div>
-          <p className="text-gray-700 dark:text-gray-300 mb-4">
+          <p className="text-gray-700 dark:text-gray-300 mb-4 font-mono text-sm leading-relaxed bg-gray-50 dark:bg-gray-900/50 px-4 py-3 rounded border-l-2 border-gray-300 dark:border-gray-700">
             {project.description}
           </p>
           <div className="flex flex-wrap gap-2 mb-4">
             {project.technologies.map((tech) => (
               <span
                 key={tech}
-                className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-gray-700 dark:text-gray-300 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-gray-700 dark:text-gray-300 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700 font-mono"
               >
                 {tech}
               </span>
@@ -40,9 +40,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 underline transition-colors"
+              className="relative text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-300 inline-block hover:scale-105 group"
             >
               GitHub
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 group-hover:w-full" />
             </Link>
           )}
           {project.liveUrl && (
@@ -50,9 +51,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 underline transition-colors"
+              className="relative text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-300 inline-block hover:scale-105 group"
             >
               Live
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 group-hover:w-full" />
             </Link>
           )}
         </div>
